@@ -27,7 +27,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
       - name: Build and push
-        id: docker_build
+        id: gillmourtunhira/js-actions
         uses: docker/build-push-action@v2
         with:
           push: true
