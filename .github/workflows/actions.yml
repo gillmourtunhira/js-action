@@ -20,10 +20,18 @@ jobs:
       - run: npm test
       - run: npm run build --if-present
 
-      - name: Build and publish image
-        uses: zmingxie/docker_buildx@master
+      - name: Login to DockerHub
+        uses: docker/login-action@v1 
         with:
-          publish: true
-          imageName: gillmourtunhira/js-actions
-          dockerHubUser: ${{ secrets.DOCKERHUB_USERNAME }}
-          dockerHubPassword: ${{ secrets.DOCKERHUB_TOKEN }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          repository: gillmourtunhira/js-actions
+          push: true
+          tags: user/app:latest
