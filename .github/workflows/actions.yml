@@ -20,10 +20,10 @@ jobs:
       - run: npm test
       - run: npm run build --if-present
 
-      - name: Build and Push Image
-        uses: mr-smithers-excellent/docker-build-push@v4 
+      - name: Build and publish image
+        uses: zmingxie/docker_buildx@master
         with:
-          image: gillmourtunhira/js-actions
-          registry: docker.io
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          publish: true
+          imageName: gillmourtunhira/js-actions
+          dockerHubUser: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerHubPassword: ${{ secrets.DOCKERHUB_TOKEN }}
